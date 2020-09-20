@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="list"></div>
+
+<script>
+function show_item(param) {
+	let button = document.createElement('button');
+    button.innerHTML = 'copy';
+    button.addEventListener("click", write_to_clipboard.bind(null, param));
+  	let p = document.createElement("p");
+	let textNode = document.createTextNode(param);
+    p.appendChild(button);
+	p.appendChild(textNode);
+	let element = document.getElementById("list");
+	element.appendChild(p);
+}
+
+
+function list_params() {
+  let url = new URL(window.location.href);
+  let searchParams = new URLSearchParams(url.search);
+  for(let [k, v] of searchParams.entries()) {
+  		show_item(k);
+        show_item(v);
+  }
+}
+
+function write_to_clipboard(text) {
+	navigator.clipboard.writeText(text);
+}
+
+list_params();
+</script>
+
+</body>
+</html>
